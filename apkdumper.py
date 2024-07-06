@@ -29,7 +29,7 @@ def adb_devices():
 # Exclude internal list based on substring
 # Input: app.name
 def filter_app(app):
-    bad_apps = ['com.android','com.google', 'com.huawei', 'org.chromium']
+    bad_apps = ['android.ext', 'com.android','com.google', 'com.huawei', 'org.chromium']
     for f in bad_apps:
         if f in app:
             return None
