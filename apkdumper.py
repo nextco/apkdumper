@@ -7,8 +7,8 @@ import tempfile
 from hashlib import sha256
 from pathlib import Path
 
-adb_path = 'D:\\Nox\\bin\\nox_adb.exe'  # x64
-# adb_path = 'adb'                      # ARM Physical
+# adb_path = 'D:\\Nox\\bin\\nox_adb.exe'  # x64
+adb_path = 'adb'                      # ARM Physical
 
 def print_paths(paths):
     for p in paths:
@@ -29,7 +29,8 @@ def adb_devices():
 # Exclude internal list based on substring
 # Input: app.name
 def filter_app(app):
-    bad_apps = ['android.ext', 'com.android','com.google', 'com.huawei', 'org.chromium']
+    bad_apps = ['android.ext', 'com.android','com.google', 'com.huawei', 'org.chromium',
+                'com.samsung', 'com.knox', 'com.sec', 'com.monotype']
     for f in bad_apps:
         if f in app:
             return None
@@ -105,7 +106,7 @@ def merge_apk(paths, dst_path):
 
     cmd = f'java -jar ./utils/APKEditor-1.3.9.jar m -i {tmp_dir} -o {dst_path}'
     subprocess.run(cmd.split(), check=True, stdout=subprocess.PIPE)
-    shutil.rmtree(tmp_dir)
+    # shutil.rmtree(tmp_dir) # remove app chunks
 
     print(f'Signing APK {dst_path}')
     sign_apk(dst_path)
